@@ -1,0 +1,100 @@
+{
+  "tracks": [
+    {
+      "file": "BlueDanube",
+      "title": "The Blue Danube",
+      "composer": "Johann Strauss II",
+      "year": 1866
+    },
+    {
+      "file": "EineKleineNachtmusik",
+      "title": "Eine kleine Nachtmusik (I. Allegro)",
+      "composer": "Wolfgang Amadeus Mozart",
+      "year": 1787
+    },
+    {
+      "file": "Spring",
+      "title": "La primavera (Spring), RV 269 - I. Allegro",
+      "composer": "Antonio Vivaldi",
+      "year": 1725
+    },
+    {
+      "file": "TheEntertainer",
+      "title": "The Entertainer",
+      "composer": "Scott Joplin",
+      "year": 1902
+    },
+    {
+      "file": "MorningMood",
+      "title": "Morning Mood (Peer Gynt Suite No. 1, Op. 46)",
+      "composer": "Edvard Grieg",
+      "year": 1875
+    },
+    {
+      "file": "SkatersWaltz",
+      "title": "The Skaters' Waltz (Les Patineurs)",
+      "composer": "Emile Waldteufel",
+      "year": 1882
+    },
+    {
+      "file": "FurElise",
+      "title": "Für Elise",
+      "composer": "Ludwig van Beethoven",
+      "year": 1810
+    },
+    {
+      "file": "Humoresque",
+      "title": "Humoresque, Op. 101 No. 7",
+      "composer": "Antonin Dvorak",
+      "year": 1894
+    },
+    {
+      "file": "BrahmsWaltz15",
+      "title": "Waltz in A-flat, Op. 39 No. 15",
+      "composer": "Johannes Brahms",
+      "year": 1865
+    },
+    {
+      "file": "Gymnopedie1",
+      "title": "Gymnopédie No. 1",
+      "composer": "Erik Satie",
+      "year": 1888
+    },
+    {
+      "file": "CanCan",
+      "title": "Can-can (Galop infernal)",
+      "composer": "Jacques Offenbach",
+      "year": 1858
+    },
+    {
+      "file": "AirOnG",
+      "title": "Air (\"Air on the G String\"), Orchestral Suite No. 3, BWV 1068",
+      "composer": "Johann Sebastian Bach",
+      "year": 1730
+    },
+    {
+      "file": "RondoAllaTurca",
+      "title": "Rondo alla Turca",
+      "composer": "Wolfgang Amadeus Mozart",
+      "year": 1783
+    },
+    {
+      "file": "ClairDeLune",
+      "title": "Clair de lune",
+      "composer": "Claude Debussy",
+      "year": 1905
+    },
+    {
+      "file": "MinuteWaltz",
+      "title": "Minute Waltz (Waltz in D-flat major, Op. 64 No. 1)",
+      "composer": "Frédéric Chopin",
+      "year": 1847
+    },
+    {
+      "file": "NocturneOp9No2",
+      "title": "Nocturne in E-flat major, Op. 9 No. 2",
+      "composer": "Frédéric Chopin",
+      "year": 1832
+    }
+  ]
+}

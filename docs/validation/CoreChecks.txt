@@ -1,0 +1,2 @@
+30 simulated minutes / 1 active train: 6.40 ms, 40 bytes (includes stopwatch)
+PASS: 531 assertions

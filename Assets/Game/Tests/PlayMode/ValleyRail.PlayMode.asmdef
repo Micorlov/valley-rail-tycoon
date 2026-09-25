@@ -1,0 +1,1 @@
+{"name":"ValleyRail.PlayMode","references":["ValleyRail.Core","ValleyRail.Presentation","Unity.InputSystem","Unity.ugui","Unity.TextMeshPro"],"optionalUnityReferences":["TestAssemblies"]}

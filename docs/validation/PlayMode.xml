@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-24 09:48:36Z" end-time="2026-09-24 09:48:39Z" duration="2.8761836">
+  <test-suite type="TestSuite" id="1010" name="Valley Rail" fullname="Valley Rail" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-24 09:48:36Z" end-time="2026-09-24 09:48:39Z" duration="2.876184" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1007" name="ValleyRail.PlayMode.dll" fullname="/Users/michael/Downloads/transport/Library/ScriptAssemblies/ValleyRail.PlayMode.dll" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-24 09:48:36Z" end-time="2026-09-24 09:48:39Z" duration="2.869874" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="54239" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1008" name="ValleyRail" fullname="ValleyRail" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-24 09:48:36Z" end-time="2026-09-24 09:48:39Z" duration="2.869195" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1009" name="Tests" fullname="ValleyRail.Tests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-24 09:48:36Z" end-time="2026-09-24 09:48:39Z" duration="2.868714" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1004" name="GameplayTests" fullname="ValleyRail.Tests.GameplayTests" classname="ValleyRail.Tests.GameplayTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-24 09:48:36Z" end-time="2026-09-24 09:48:39Z" duration="2.867631" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1006" name="BuildPreviewCancelDoesNotModifyWorld" fullname="ValleyRail.Tests.GameplayTests.BuildPreviewCancelDoesNotModifyWorld" methodname="BuildPreviewCancelDoesNotModifyWorld" classname="ValleyRail.Tests.GameplayTests" runstate="Runnable" seed="2127355728" result="Passed" start-time="2026-09-24 09:48:36Z" end-time="2026-09-24 09:48:38Z" duration="1.589659" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1005" name="ThreeRoutesRunAndRenderWithoutErrors" fullname="ValleyRail.Tests.GameplayTests.ThreeRoutesRunAndRenderWithoutErrors" methodname="ThreeRoutesRunAndRenderWithoutErrors" classname="ValleyRail.Tests.GameplayTests" runstate="Runnable" seed="87393826" result="Passed" start-time="2026-09-24 09:48:38Z" end-time="2026-09-24 09:48:39Z" duration="1.267833" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: /Users/michael/Library/Application Support/Valley Rail/Valley Rail/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

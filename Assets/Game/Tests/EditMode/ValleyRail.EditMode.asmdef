@@ -1,0 +1,14 @@
+{
+  "name": "ValleyRail.EditMode",
+  "references": [
+    "ValleyRail.Core",
+    "ValleyRail.Presentation",
+    "Unity.Newtonsoft.Json"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

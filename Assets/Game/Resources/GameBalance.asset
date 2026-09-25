@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99acdd62b2f194bf2b01a81261c56be2, type: 3}
+  m_Name: GameBalance
+  m_EditorClassIdentifier: ValleyRail.Presentation::ValleyRail.GameBalance
+  values:
+    startingMoney: 50000
+    straightCost: 100
+    curveCost: 120
+    junctionCost: 200
+    bridgeCost: 1500
+    stationCost: 2000
+    trainPrice: 401f0000b036000010270000f05500007017000090650000
+    capacity: 1e0000002d000000280000005a0000001800000040000000
+    speed: d0070000b80b0000b80b0000dc050000c409000094110000
+    runningCost: 140000002300000019000000320000000c00000041000000
+    production: 140000000f00000014000000
+    rate: 020000000300000002000000
+    storage: 200
+    dwellTicks: 60

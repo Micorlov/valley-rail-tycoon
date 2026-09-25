@@ -1,0 +1,1 @@
+{"name":"ValleyRail.Presentation","references":["ValleyRail.Core","Unity.InputSystem","Unity.ugui","Unity.TextMeshPro","Unity.Newtonsoft.Json","Unity.RenderPipelines.Universal.Runtime","Unity.RenderPipelines.Core.Runtime"]}

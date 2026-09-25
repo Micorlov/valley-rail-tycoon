@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="40" result="Passed" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.2644726">
+  <test-suite type="TestSuite" id="1000" name="Valley Rail" fullname="Valley Rail" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.264473" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1050" name="ValleyRail.EditMode.dll" fullname="/Users/michael/Downloads/transport/Library/ScriptAssemblies/ValleyRail.EditMode.dll" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.260033" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="54060" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1051" name="ValleyRail" fullname="ValleyRail" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.259845" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1052" name="Tests" fullname="ValleyRail.Tests" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.259708" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1007" name="RailwayTests" fullname="ValleyRail.Tests.RailwayTests" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.259172" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1015" name="BridgeRemovalIsAtomicAndRefundsOnce" fullname="ValleyRail.Tests.RailwayTests.BridgeRemovalIsAtomicAndRefundsOnce" methodname="BridgeRemovalIsAtomicAndRefundsOnce" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="366914588" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.020442" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1049" name="BuildCommandsExecuteWithoutSubscribers" fullname="ValleyRail.Tests.RailwayTests.BuildCommandsExecuteWithoutSubscribers" methodname="BuildCommandsExecuteWithoutSubscribers" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="885698797" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000388" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1035" name="CapitalSpendingIsNotARunningExpense" fullname="ValleyRail.Tests.RailwayTests.CapitalSpendingIsNotARunningExpense" methodname="CapitalSpendingIsNotARunningExpense" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1387295772" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.006953" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1041" name="CargoIsConservedAndPayoutIgnoresTrackLength" fullname="ValleyRail.Tests.RailwayTests.CargoIsConservedAndPayoutIgnoresTrackLength" methodname="CargoIsConservedAndPayoutIgnoresTrackLength" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1840429847" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.001768" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1046" name="CityGrowthReplaysExactlyFromASave" fullname="ValleyRail.Tests.RailwayTests.CityGrowthReplaysExactlyFromASave" methodname="CityGrowthReplaysExactlyFromASave" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1612834406" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.098163" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1017" name="CoalEarnsMoneyAndActiveRouteCannotBeRemoved" fullname="ValleyRail.Tests.RailwayTests.CoalEarnsMoneyAndActiveRouteCannotBeRemoved" methodname="CoalEarnsMoneyAndActiveRouteCannotBeRemoved" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1683128831" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.001213" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1026" name="CorruptPrimaryRetainsUsableBackup" fullname="ValleyRail.Tests.RailwayTests.CorruptPrimaryRetainsUsableBackup" methodname="CorruptPrimaryRetainsUsableBackup" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="2104754286" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.014925" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1048" name="DemolishingAHouseCostsMoneyAndFreesTheCell" fullname="ValleyRail.Tests.RailwayTests.DemolishingAHouseCostsMoneyAndFreesTheCell" methodname="DemolishingAHouseCostsMoneyAndFreesTheCell" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1536881376" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.001694" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1013" name="DisconnectedPortsDoNotJoin" fullname="ValleyRail.Tests.RailwayTests.DisconnectedPortsDoNotJoin" methodname="DisconnectedPortsDoNotJoin" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1956709689" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.001965" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1014" name="FailedBuildDoesNotChargeOrMutate" fullname="ValleyRail.Tests.RailwayTests.FailedBuildDoesNotChargeOrMutate" methodname="FailedBuildDoesNotChargeOrMutate" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1313748081" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000976" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1037" name="FleetNumbersAreSequentialAndStable" fullname="ValleyRail.Tests.RailwayTests.FleetNumbersAreSequentialAndStable" methodname="FleetNumbersAreSequentialAndStable" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="162500576" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000782" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1016" name="IncompleteBridgeCannotBePlaced" fullname="ValleyRail.Tests.RailwayTests.IncompleteBridgeCannotBePlaced" methodname="IncompleteBridgeCannotBePlaced" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="678257421" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000276" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1028" name="InsolvencyCanRecoverBySelling" fullname="ValleyRail.Tests.RailwayTests.InsolvencyCanRecoverBySelling" methodname="InsolvencyCanRecoverBySelling" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1417104804" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.001192" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1040" name="InvalidRouteAssignmentsAreRejected" fullname="ValleyRail.Tests.RailwayTests.InvalidRouteAssignmentsAreRejected" methodname="InvalidRouteAssignmentsAreRejected" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="633049087" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.001262" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1027" name="InvalidSchemaIsNotLoaded" fullname="ValleyRail.Tests.RailwayTests.InvalidSchemaIsNotLoaded" methodname="InvalidSchemaIsNotLoaded" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1858765937" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000566" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1039" name="InvalidStationPlacementsAreRejectedWithoutSideEffects" fullname="ValleyRail.Tests.RailwayTests.InvalidStationPlacementsAreRejectedWithoutSideEffects" methodname="InvalidStationPlacementsAreRejectedWithoutSideEffects" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1835148076" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000824" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1047" name="LegacySaveWithoutCitiesMigratesToDayZeroTowns" fullname="ValleyRail.Tests.RailwayTests.LegacySaveWithoutCitiesMigratesToDayZeroTowns" methodname="LegacySaveWithoutCitiesMigratesToDayZeroTowns" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1888667554" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000947" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1043" name="ManualAndAutosaveSlotsAreIndependent" fullname="ValleyRail.Tests.RailwayTests.ManualAndAutosaveSlotsAreIndependent" methodname="ManualAndAutosaveSlotsAreIndependent" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="546002130" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.005338" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1018" name="NetworkOnlyAllowsOneTrain" fullname="ValleyRail.Tests.RailwayTests.NetworkOnlyAllowsOneTrain" methodname="NetworkOnlyAllowsOneTrain" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1612290234" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000624" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1033" name="NonAdjacentBuildCellsAreRejected" fullname="ValleyRail.Tests.RailwayTests.NonAdjacentBuildCellsAreRejected" methodname="NonAdjacentBuildCellsAreRejected" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="458358349" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000379" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1042" name="PassengerRouteIsProfitable" fullname="ValleyRail.Tests.RailwayTests.PassengerRouteIsProfitable" methodname="PassengerRouteIsProfitable" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="643124372" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.001228" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1023" name="PauseHasNoEconomicEffects" fullname="ValleyRail.Tests.RailwayTests.PauseHasNoEconomicEffects" methodname="PauseHasNoEconomicEffects" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="313217656" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.002028" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1036" name="ReturnLegIsProtected" fullname="ValleyRail.Tests.RailwayTests.ReturnLegIsProtected" methodname="ReturnLegIsProtected" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="442071577" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.001117" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1030" name="RouteCacheInvalidatesAfterDeletion" fullname="ValleyRail.Tests.RailwayTests.RouteCacheInvalidatesAfterDeletion" methodname="RouteCacheInvalidatesAfterDeletion" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1000396092" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000470" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1025" name="SaveDuringDwellContinuesExactly" fullname="ValleyRail.Tests.RailwayTests.SaveDuringDwellContinuesExactly" methodname="SaveDuringDwellContinuesExactly" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1336013827" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.008426" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1024" name="SaveDuringTravelContinuesExactly" fullname="ValleyRail.Tests.RailwayTests.SaveDuringTravelContinuesExactly" methodname="SaveDuringTravelContinuesExactly" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="964025755" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.007759" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1044" name="SaveValidationRejectsStructuralCorruption" fullname="ValleyRail.Tests.RailwayTests.SaveValidationRejectsStructuralCorruption" methodname="SaveValidationRejectsStructuralCorruption" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="308617197" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.012551" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1032" name="SavingDoesNotOverwriteNewerSchema" fullname="ValleyRail.Tests.RailwayTests.SavingDoesNotOverwriteNewerSchema" methodname="SavingDoesNotOverwriteNewerSchema" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1705207505" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.002427" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1031" name="SavingOverCorruptPrimaryPreservesLastGoodBackup" fullname="ValleyRail.Tests.RailwayTests.SavingOverCorruptPrimaryPreservesLastGoodBackup" methodname="SavingOverCorruptPrimaryPreservesLastGoodBackup" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1942976402" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.018555" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1029" name="SharedProducerDoesNotDuplicateInventory" fullname="ValleyRail.Tests.RailwayTests.SharedProducerDoesNotDuplicateInventory" methodname="SharedProducerDoesNotDuplicateInventory" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="591881331" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000856" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1034" name="SimulationSoakHasNoRecurringManagedAllocations" fullname="ValleyRail.Tests.RailwayTests.SimulationSoakHasNoRecurringManagedAllocations" methodname="SimulationSoakHasNoRecurringManagedAllocations" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="766649010" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.009632" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1022" name="SpeedChangesSchedulingNotSimulation" fullname="ValleyRail.Tests.RailwayTests.SpeedChangesSchedulingNotSimulation" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.012447" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1019" name="SpeedChangesSchedulingNotSimulation(1)" fullname="ValleyRail.Tests.RailwayTests.SpeedChangesSchedulingNotSimulation(1)" methodname="SpeedChangesSchedulingNotSimulation" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1496622016" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.003368" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1020" name="SpeedChangesSchedulingNotSimulation(2)" fullname="ValleyRail.Tests.RailwayTests.SpeedChangesSchedulingNotSimulation(2)" methodname="SpeedChangesSchedulingNotSimulation" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="88627928" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.002822" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1021" name="SpeedChangesSchedulingNotSimulation(4)" fullname="ValleyRail.Tests.RailwayTests.SpeedChangesSchedulingNotSimulation(4)" methodname="SpeedChangesSchedulingNotSimulation" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1958986051" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.004470" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1045" name="TownsStartAsVillagesAndGrowWithPassengerService" fullname="ValleyRail.Tests.RailwayTests.TownsStartAsVillagesAndGrowWithPassengerService" methodname="TownsStartAsVillagesAndGrowWithPassengerService" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="462268712" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.006427" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1012" name="TurnoutsPermitOnlyStemTransitions" fullname="ValleyRail.Tests.RailwayTests.TurnoutsPermitOnlyStemTransitions" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.001642" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1008" name="TurnoutsPermitOnlyStemTransitions(7,1)" fullname="ValleyRail.Tests.RailwayTests.TurnoutsPermitOnlyStemTransitions(7,1)" methodname="TurnoutsPermitOnlyStemTransitions" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1283176663" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000710" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1009" name="TurnoutsPermitOnlyStemTransitions(11,0)" fullname="ValleyRail.Tests.RailwayTests.TurnoutsPermitOnlyStemTransitions(11,0)" methodname="TurnoutsPermitOnlyStemTransitions" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="600262116" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000153" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1010" name="TurnoutsPermitOnlyStemTransitions(13,3)" fullname="ValleyRail.Tests.RailwayTests.TurnoutsPermitOnlyStemTransitions(13,3)" methodname="TurnoutsPermitOnlyStemTransitions" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1870922679" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000156" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1011" name="TurnoutsPermitOnlyStemTransitions(14,2)" fullname="ValleyRail.Tests.RailwayTests.TurnoutsPermitOnlyStemTransitions(14,2)" methodname="TurnoutsPermitOnlyStemTransitions" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1901824755" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.000156" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1038" name="TutorialFollowsWorldStateAndEndsAfterFirstDeliveries" fullname="ValleyRail.Tests.RailwayTests.TutorialFollowsWorldStateAndEndsAfterFirstDeliveries" methodname="TutorialFollowsWorldStateAndEndsAfterFirstDeliveries" classname="ValleyRail.Tests.RailwayTests" runstate="Runnable" seed="1728419746" result="Passed" start-time="2026-09-24 09:48:15Z" end-time="2026-09-24 09:48:15Z" duration="0.001301" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: /Users/michael/Library/Application Support/Valley Rail/Valley Rail/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
