@@ -101,6 +101,72 @@ namespace ValleyRail.Tests
             LogAssert.NoUnexpectedReceived();
         }
 
+        // The city icon's picture, as the player sees it: Oakridge's stadium bowl beside its tower cluster, from the game's
+        // own isometric camera in daylight, in the grown world the commercial was filmed in (Tests/Fixtures/phone-stadium.json).
+        // Floating labels are hidden and the HUD is an overlay canvas, so neither reaches the render. Tools/make_city_icon.py
+        // crops the square and letters the name:
+        //   Logs/icon-stadium.png  3072 square, wider than the icon so the script can choose the crop
+        [UnityTest, Explicit("Writes the city icon render to Logs; run it by name.")]
+        public IEnumerator RendersTheStadiumSkylineForTheCityIcon()
+        {
+            var app = Boot();
+            yield return null;
+            app.NewGame(true);
+            app.SetSpeed(0);
+            yield return null;
+            var codec = new JsonSnapshotCodec();
+            var envelope = codec.Decode<SaveEnvelope>(File.ReadAllText("Tests/Fixtures/phone-stadium.json"));
+            var state = codec.Decode<WorldState>(envelope.payload);
+            SaveMigration.Upgrade(state, app.Game.Balance);
+            state.speed = 0;
+            app.BuildSession(state);
+            app.SetSpeed(0);
+            for (int frame = 0; frame < 5; frame++)
+                yield return null;
+            // Station counters carry a navy board behind their letters, so every renderer under a label goes, not just the text.
+            foreach (var text in Object.FindObjectsByType<TMPro.TextMeshPro>(FindObjectsSortMode.None))
+                foreach (var part in text.GetComponentsInChildren<Renderer>())
+                    part.enabled = false;
+
+            var city = app.Game.World.cities.First(c => c.name == StadiumTown);
+            var bowl = city.buildings.Where(TramVenues.Stadium).OrderByDescending(b => BuildingCatalog.Get(b.def).size).First();
+            int bowlSize = BuildingCatalog.Get(bowl.def).size;
+            var bowlCentre = new Vector3(bowl.cell.x + bowlSize / 2f, 0, bowl.cell.z + bowlSize / 2f);
+            var towers = city.buildings.Where(b => BuildingCatalog.Get(b.def).height >= 250
+                && Vector3.Distance(new Vector3(b.cell.x, 0, b.cell.z), bowlCentre) < TowerReach).ToList();
+            Assert.That(towers.Count, Is.GreaterThan(10), StadiumTown + " has towers beside its stadium");
+            var towerCentre = new Vector3((float)towers.Average(b => b.cell.x), 0, (float)towers.Average(b => b.cell.z));
+            app.Camera.SetTurn(StadiumTurn);
+            app.Camera.focus = Vector3.Lerp(bowlCentre, towerCentre, .55f);
+            app.Camera.zoom = StadiumZoom;
+            for (int frame = 0; frame < 10; frame++)
+                yield return null;
+
+            var view = app.Camera.view;
+            var texture = new RenderTexture(StadiumSize, StadiumSize, 24) { antiAliasing = 4 };
+            view.targetTexture = texture;
+            view.Render();
+            RenderTexture.active = texture;
+            var image = new Texture2D(StadiumSize, StadiumSize, TextureFormat.RGB24, false);
+            image.ReadPixels(new Rect(0, 0, StadiumSize, StadiumSize), 0, 0);
+            image.Apply();
+            RenderTexture.active = null;
+            view.targetTexture = null;
+            Directory.CreateDirectory("Logs");
+            File.WriteAllBytes("Logs/icon-stadium.png", image.EncodeToPNG());
+            TestContext.WriteLine($"VR_ICON stadium {bowl.cell.x},{bowl.cell.z} size {bowlSize}, {towers.Count} towers at {towerCentre}, focus {app.Camera.focus}");
+            Object.Destroy(image);
+            Object.Destroy(texture);
+            yield return null;
+            LogAssert.NoUnexpectedReceived();
+        }
+
+        const string StadiumTown = "Oakridge";
+        const int StadiumTurn = 0; // the view the commercial was filmed from
+        const float StadiumZoom = 15; // orthographic half-height in cells: the icon square plus the adaptive layer's margin
+        const int StadiumSize = 3072; // 102 px a cell, so the cropped face is about 1400 px
+        const float TowerReach = 24; // towers counted as the stadium's skyline, in cells from the bowl's centre
+
         // Low warm key light from behind the camera and a pink rim from behind the subject, for a view looking along yaw.
         sealed class DramaticLights
         {
@@ -128,7 +194,7 @@ namespace ValleyRail.Tests
             return lights;
         }
 
-        static void LayTrack(WorldView world, Transform parent)
+        internal static void LayTrack(WorldView world, Transform parent)
         {
             const float start = -9, end = 9;
             world.Box("Ballast", new Vector3(0, .035f, 0), new Vector3(.82f, .07f, end - start), new Color(.48f, .46f, .39f), parent);
