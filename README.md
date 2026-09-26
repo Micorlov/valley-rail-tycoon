@@ -122,7 +122,26 @@ Batch command (adjust the editor path):
 
 If external Android tools are needed, provide `VALLEY_ANDROID_SDK`, `VALLEY_ANDROID_NDK` and `VALLEY_JAVA_HOME` environment variables. The build uses them temporarily and restores editor preferences afterward.
 
-**Valley Rail → Configure Project** recreates missing scene/configuration assets without overwriting the balance asset. **Build Mac Preview** creates a desktop preview.
+**Valley Rail → Configure Project** recreates missing scene/configuration assets without overwriting the balance asset.
+
+### macOS
+
+**Valley Rail → Build macOS App** (or `-executeMethod ValleyRail.Editor.ProjectSetup.BuildMac`) produces `Builds/Mac/Valley Rail.app`: one universal Mono binary for Intel and Apple silicon, Metal, Retina, 60 fps, bundle id `com.valleyrail.tycoon`. It opens borderless full screen at the display's resolution; Ctrl+Cmd+F (or F11, or the green button) switches to a resizable window. The Dock icon is `Assets/Game/Art/icon-mac.png`, which `Tools/make_icon.py` writes on Apple's rounded-square grid alongside the Android icons. The editor switches back to its previous build target afterwards. Unity signs the app ad hoc, so it runs on the Mac that built it; to share it, sign it with a Developer ID and notarize it. Saves go to `~/Library/Application Support/Valley Rail/Valley Rail/`.
+
+Unity's Input System sees a trackpad swipe only as a mouse wheel and never sees pinch or twist, so the Mac app carries a small native plugin, `Assets/Plugins/macOS/ValleyTrackpad.bundle` (Mac player only), that watches the app's own event stream and hands the camera each frame's pinch, twist and swipe (`Presentation/MacTrackpad.cs`). Its source is `Native/macOS/ValleyTrackpad.m`; after editing it, run `Tools/build_trackpad_plugin.sh`, which runs the plugin's checks and rebuilds the universal bundle.
+
+| Desktop control | Action |
+|---|---|
+| Left drag / click (or trackpad tap) | Pan / inspect, as a finger does; in Track mode, drag draws track |
+| Right or middle drag | Pan in every mode, including while laying track |
+| Trackpad two-finger swipe | Pan in every mode (follows the system's natural-scrolling setting); over a panel it scrolls the panel |
+| Trackpad pinch, mouse wheel, Cmd + two-finger swipe, + / - | Zoom |
+| Trackpad two-finger twist | Turn the view a quarter turn (one turn per twist of about 30°) |
+| WASD / arrow keys (Shift = faster) | Pan |
+| Q / E | Turn the view a quarter turn either way (E matches the rotate button) |
+| Space · 1 / 2 / 3 | Pause or resume · speed 1x / 2x / 4x |
+| Escape | Close panels and menus, leave a tool, open the menu |
+| Cmd+Q, or QUIT GAME on the title screen | Quit (the game autosaves first) |
 
 ## Tests
 

@@ -60,6 +60,9 @@ namespace ValleyRail.Editor
             PlayerSettings.allowedAutorotateToPortrait = false;
             PlayerSettings.allowedAutorotateToPortraitUpsideDown = false;
             PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel29;
+            // Pinned, not Auto: Auto targets the newest installed platform, which was the API 37 preview.
+            // Google Play rejects preview API levels, so releases must target the newest stable one.
+            PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevel36;
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
             PlayerSettings.SetScriptingBackend(UnityEditor.Build.NamedBuildTarget.Android, ScriptingImplementation.IL2CPP);
             PlayerSettings.SetApiCompatibilityLevel(UnityEditor.Build.NamedBuildTarget.Android, ApiCompatibilityLevel.NET_Standard);
@@ -72,6 +75,7 @@ namespace ValleyRail.Editor
             if (int.TryParse(System.Environment.GetEnvironmentVariable("VALLEY_VERSION_CODE"), out int versionCode))
                 PlayerSettings.Android.bundleVersionCode = versionCode;
             ApplyIcons();
+            ConfigureMac();
             // Both input handlers: the Input System drives touch and UI; the legacy manager guarantees the Android Back
             // key is seen on its first press. Serialized setting avoids dependency on editor-only package APIs.
             var settings = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/ProjectSettings.asset")[0]);
@@ -203,14 +207,67 @@ namespace ValleyRail.Editor
             PlayerSettings.Android.keyaliasName = "";
             PlayerSettings.Android.useCustomKeystore = false;
         }
-        [MenuItem("Valley Rail/Build Mac Preview")]
+        const string MacApp = "Builds/Mac/Valley Rail.app";
+        // macOS player: borderless full screen at the display's resolution, which Ctrl+Cmd+F or the green button turns into a
+        // resizable window; one universal Mono binary for Intel and Apple silicon (the Mac IL2CPP module is not installed);
+        // Retina rendering; the launcher art on Apple's rounded-square grid as the Dock icon. Standalone-only settings, so
+        // Android builds are unaffected.
+        static void ConfigureMac()
+        {
+            var standalone = UnityEditor.Build.NamedBuildTarget.Standalone;
+            PlayerSettings.SetApplicationIdentifier(standalone, "com.valleyrail.tycoon");
+            PlayerSettings.SetScriptingBackend(standalone, ScriptingImplementation.Mono2x);
+            PlayerSettings.fullScreenMode = FullScreenMode.FullScreenWindow;
+            PlayerSettings.defaultIsNativeResolution = true;
+            PlayerSettings.resizableWindow = true;
+            PlayerSettings.allowFullscreenSwitch = true;
+            PlayerSettings.macRetinaSupport = true;
+            PlayerSettings.useMacAppStoreValidation = false;
+            PlayerSettings.macOS.applicationCategoryType = "public.app-category.simulation-games";
+            string build = System.Environment.GetEnvironmentVariable("VALLEY_VERSION_CODE");
+            if (int.TryParse(build, out _))
+                PlayerSettings.macOS.buildNumber = build;
+            // The architecture setting lives in the Mac platform extension assembly, resolved by name like the Android types.
+            var settings = System.Type.GetType("UnityEditor.OSXStandalone.UserBuildSettings, UnityEditor.OSXStandalone.Extensions");
+            var architecture = settings?.GetProperty("architecture");
+            if (architecture != null)
+                architecture.SetValue(null, System.Enum.Parse(architecture.PropertyType, "x64ARM64"));
+            else
+                Debug.LogWarning("Mac build settings type not found; the Mac build keeps its current architecture.");
+            var icon = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Game/Art/icon-mac.png");
+            if (!icon)
+            {
+                Debug.LogWarning("Assets/Game/Art/icon-mac.png is missing (Tools/make_icon.py writes it); the Mac app keeps Unity's default icon.");
+                return;
+            }
+            var icons = new Texture2D[PlayerSettings.GetIconSizes(standalone, IconKind.Application).Length];
+            for (int i = 0; i < icons.Length; i++)
+                icons[i] = icon;
+            PlayerSettings.SetIcons(standalone, icons, IconKind.Application);
+        }
+        /// <summary>
+        /// The macOS game at Builds/Mac/Valley Rail.app. Unity signs it ad hoc, so it runs on this Mac; other Macs need a
+        /// Developer ID signature and notarization. The editor returns to its previous target (Android) afterwards, so the
+        /// phone builds that follow do not pay for another platform switch.
+        /// </summary>
+        [MenuItem("Valley Rail/Build macOS App")]
         public static void BuildMac()
         {
             Configure();
-            Directory.CreateDirectory("Builds");
-            var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions { scenes = Scenes, locationPathName = "Builds/ValleyRail.app", target = BuildTarget.StandaloneOSX });
-            if (report.summary.result != UnityEditor.Build.Reporting.BuildResult.Succeeded)
-                throw new System.Exception("Mac build failed");
+            Directory.CreateDirectory(Path.GetDirectoryName(MacApp));
+            var previous = EditorUserBuildSettings.activeBuildTarget;
+            try
+            {
+                var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions { scenes = Scenes, locationPathName = MacApp, target = BuildTarget.StandaloneOSX, targetGroup = BuildTargetGroup.Standalone });
+                if (report.summary.result != UnityEditor.Build.Reporting.BuildResult.Succeeded)
+                    throw new System.Exception("Mac build failed: " + report.summary.result);
+                Debug.Log("VALLEY_RAIL_MAC_BUILT " + MacApp);
+            }
+            finally
+            {
+                if (EditorUserBuildSettings.activeBuildTarget != previous)
+                    EditorUserBuildSettings.SwitchActiveBuildTarget(BuildPipeline.GetBuildTargetGroup(previous), previous);
+            }
         }
     }
 }

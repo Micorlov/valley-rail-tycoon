@@ -72,7 +72,7 @@ namespace ValleyRail
             }
             active = this;
             DontDestroyOnLoad(gameObject);
-            Application.targetFrameRate = 30;
+            Application.targetFrameRate = DesktopControls.IsDesktop ? DesktopControls.FrameRate : 30;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             var config = Resources.Load<GameBalance>("GameBalance");
             balance = config ? config.values : new Balance();
@@ -139,6 +139,9 @@ namespace ValleyRail
             light.transform.rotation = Quaternion.Euler(50, -35, 0);
             RenderSettings.ambientLight = new Color(.62f, .7f, .74f);
             var events = new GameObject("Event System", typeof(EventSystem), typeof(InputSystemUIInputModule));
+            // The UI is pointer-only. Keyboard navigation would make Space re-press the last clicked button and WASD / arrows
+            // move a selection, clashing with the desktop pause and pan keys.
+            events.GetComponent<EventSystem>().sendNavigationEvents = false;
             events.transform.SetParent(transform);
             var ui = new GameObject("UI");
             ui.transform.SetParent(transform);

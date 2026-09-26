@@ -481,8 +481,16 @@ namespace ValleyRail
                 Button(menuBody, "RETURN TO TITLE", app.Title, new Vector2(40, y), new Vector2(520, 96));
                 y -= step;
             }
-            Text(menuBody, "Drag to explore · Pinch / scroll to zoom\nBuild tracks near an industry, then add a station.", new Vector2(42, y - 6), new Vector2(520, 60), 18, muted);
-            menuBody.sizeDelta = new Vector2(0, -y + 70);
+            else if (DesktopControls.IsDesktop)
+            {
+                // A Mac window needs a way out; phones leave with Back or Home. The title screen has already autosaved.
+                Button(menuBody, "QUIT GAME", Application.Quit, new Vector2(40, y), new Vector2(520, 96));
+                y -= step;
+            }
+            string hint = DesktopControls.MenuHint(DesktopControls.IsDesktop);
+            float hintHeight = 30 * hint.Split('\n').Length;
+            Text(menuBody, hint, new Vector2(42, y - 6), new Vector2(520, hintHeight), 18, muted);
+            menuBody.sizeDelta = new Vector2(0, -y + 10 + hintHeight);
         }
         public void CloseMenu()
         {
