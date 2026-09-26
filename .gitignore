@@ -26,3 +26,7 @@ mono_crash.*.json
 *.p12
 *.pem
 keystore.properties
+
+# Python bytecode from the Tools scripts.
+__pycache__/
+*.pyc
