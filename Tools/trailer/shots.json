@@ -1,0 +1,341 @@
+{
+ "only": "",
+ "every": 1,
+ "scale": 1,
+ "shots": [
+  {
+   "name": "01_city",
+   "start": 5,
+   "frames": 250,
+   "light": "dusk",
+   "sunYaw": -10,
+   "sunPitch": 25,
+   "eye0": {
+    "x": 82.1,
+    "y": 0.25,
+    "z": 26.6
+   },
+   "look0": {
+    "x": 79.5,
+    "y": 1.0,
+    "z": 30.5
+   },
+   "eye1": {
+    "x": 82.6,
+    "y": 1.4,
+    "z": 25.8
+   },
+   "look1": {
+    "x": 79.5,
+    "y": 6.5,
+    "z": 30.5
+   },
+   "fov0": 42,
+   "fov1": 36
+  },
+  {
+   "name": "02_bridge",
+   "start": 20.5,
+   "frames": 190,
+   "light": "dusk",
+   "sunYaw": 20,
+   "sunPitch": 20,
+   "eye0": {
+    "x": 31.3,
+    "y": 0.12,
+    "z": 106.2
+   },
+   "look0": {
+    "x": 31.2,
+    "y": 1.0,
+    "z": 110
+   },
+   "eye1": {
+    "x": 31.1,
+    "y": 0.12,
+    "z": 107.0
+   },
+   "look1": {
+    "x": 31.2,
+    "y": 1.0,
+    "z": 110
+   },
+   "fov0": 44,
+   "fov1": 40
+  },
+  {
+   "name": "03_fleet",
+   "start": 10,
+   "frames": 190,
+   "light": "dusk",
+   "sunYaw": -106,
+   "sunPitch": 22,
+   "stage": "fleet",
+   "stageAt": {
+    "x": 92.2,
+    "y": 0,
+    "z": 39.8
+   },
+   "stageYaw": 51,
+   "stageSpeed": 2.0,
+   "stageModels": [
+    5,
+    0,
+    5
+   ],
+   "stageWagons": 3,
+   "eye0": {
+    "x": 98.0,
+    "y": 0.28,
+    "z": 47.7
+   },
+   "look0": {
+    "x": 0,
+    "y": 0.7,
+    "z": 0
+   },
+   "eye1": {
+    "x": 98.0,
+    "y": 0.24,
+    "z": 47.7
+   },
+   "look1": {
+    "x": 0,
+    "y": 0.45,
+    "z": 0
+   },
+   "fov0": 34,
+   "fov1": 30,
+   "follow": "stage",
+   "lookFollows": true
+  },
+  {
+   "name": "04_station",
+   "start": 15.5,
+   "frames": 190,
+   "light": "dusk",
+   "sunYaw": -55,
+   "sunPitch": 25,
+   "eye0": {
+    "x": 51.3,
+    "y": 0.32,
+    "z": 39.05
+   },
+   "look0": {
+    "x": 46,
+    "y": 0.42,
+    "z": 39.6
+   },
+   "eye1": {
+    "x": 51.0,
+    "y": 0.32,
+    "z": 39.05
+   },
+   "look1": {
+    "x": 46,
+    "y": 0.42,
+    "z": 39.6
+   },
+   "fov0": 44,
+   "fov1": 42
+  },
+  {
+   "name": "05_charge",
+   "start": 40.5,
+   "frames": 190,
+   "light": "dusk",
+   "sunYaw": -60,
+   "sunPitch": 20,
+   "eye0": {
+    "x": 64,
+    "y": 0.2,
+    "z": 39.25
+   },
+   "look0": {
+    "x": 50,
+    "y": 1.2,
+    "z": 41.5
+   },
+   "eye1": {
+    "x": 64,
+    "y": 0.2,
+    "z": 39.25
+   },
+   "look1": {
+    "x": 52,
+    "y": 0.8,
+    "z": 41.0
+   },
+   "fov0": 30,
+   "fov1": 30
+  },
+  {
+   "name": "06_street",
+   "start": 30,
+   "frames": 130,
+   "light": "dusk",
+   "sunYaw": -70,
+   "sunPitch": 30,
+   "eye0": {
+    "x": 86.5,
+    "y": 0.18,
+    "z": 31.0
+   },
+   "look0": {
+    "x": 72,
+    "y": 0.9,
+    "z": 31.3
+   },
+   "eye1": {
+    "x": 85.5,
+    "y": 0.18,
+    "z": 31.0
+   },
+   "look1": {
+    "x": 72,
+    "y": 0.9,
+    "z": 31.3
+   },
+   "fov0": 36,
+   "fov1": 36
+  },
+  {
+   "name": "07_freight",
+   "start": 12.5,
+   "frames": 190,
+   "light": "dusk",
+   "sunYaw": -100,
+   "sunPitch": 22,
+   "eye0": {
+    "x": 98.5,
+    "y": 0.22,
+    "z": 23.3
+   },
+   "look0": {
+    "x": 107,
+    "y": 0.6,
+    "z": 22.3
+   },
+   "eye1": {
+    "x": 98.5,
+    "y": 0.22,
+    "z": 23.3
+   },
+   "look1": {
+    "x": 105,
+    "y": 0.5,
+    "z": 22.2
+   },
+   "fov0": 32,
+   "fov1": 32
+  },
+  {
+   "name": "08_express",
+   "start": 43.5,
+   "frames": 130,
+   "light": "dusk",
+   "sunYaw": -60,
+   "sunPitch": 25,
+   "eye0": {
+    "x": 97,
+    "y": 0.22,
+    "z": 24.0
+   },
+   "look0": {
+    "x": 82,
+    "y": 1.2,
+    "z": 26.5
+   },
+   "eye1": {
+    "x": 96.6,
+    "y": 0.22,
+    "z": 24.0
+   },
+   "look1": {
+    "x": 82,
+    "y": 1.2,
+    "z": 26.5
+   },
+   "fov0": 40,
+   "fov1": 40
+  },
+  {
+   "name": "09_fire",
+   "start": 30,
+   "frames": 130,
+   "light": "dusk",
+   "sunYaw": -30,
+   "sunPitch": 28,
+   "fire": "Sunvale",
+   "fireLead": 6,
+   "follow": "fire",
+   "eyeFollows": true,
+   "lookFollows": true,
+   "local": true,
+   "eye0": {
+    "x": 0,
+    "y": 0.9,
+    "z": -2.2
+   },
+   "look0": {
+    "x": 0,
+    "y": 0.2,
+    "z": 1.5
+   },
+   "eye1": {
+    "x": 0,
+    "y": 0.75,
+    "z": -1.9
+   },
+   "look1": {
+    "x": 0,
+    "y": 0.2,
+    "z": 1.5
+   },
+   "fov0": 45,
+   "fov1": 45
+  },
+  {
+   "name": "10_hero",
+   "start": 10,
+   "frames": 190,
+   "light": "sunset",
+   "sunYaw": 225,
+   "sunPitch": 16,
+   "stage": "fleet",
+   "stageAt": {
+    "x": 93.6,
+    "y": 0,
+    "z": 40.8
+   },
+   "stageYaw": 51,
+   "stageSpeed": 0.22,
+   "stageModels": [
+    0
+   ],
+   "stageWagons": 1,
+   "eye0": {
+    "x": 95.6,
+    "y": 0.26,
+    "z": 43.0
+   },
+   "look0": {
+    "x": 93.2,
+    "y": 0.9,
+    "z": 40.4
+   },
+   "eye1": {
+    "x": 95.3,
+    "y": 0.3,
+    "z": 42.7
+   },
+   "look1": {
+    "x": 93.2,
+    "y": 0.9,
+    "z": 40.4
+   },
+   "fov0": 36,
+   "fov1": 30
+  }
+ ]
+}

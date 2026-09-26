@@ -143,6 +143,19 @@ Unity's Input System sees a trackpad swipe only as a mouse wheel and never sees 
 | Escape | Close panels and menus, leave a tool, open the menu |
 | Cmd+Q, or QUIT GAME on the title screen | Quit (the game autosaves first) |
 
+### Cinematic trailer
+
+A 72 s trailer in the style of the Red Alert 2 opening cinematic. Every shot is rendered in-engine from the downtown fixture by low perspective cameras, then graded, letterboxed to 2.39:1 and cut to an original march. The steps, in order:
+
+1. `Tools/trailer/render.sh SurveysTheWorld` writes `Logs/trailer/survey.png` (a top-down map) and `survey.json` (towns, stations, bridges, and where every train is each second).
+2. `Tools/trailer/render.sh RendersTheTrailerShots` renders every shot in `Tools/trailer/shots.json` to `Logs/trailer/<shot>/NNNN.jpg`. It uses 24 frames per simulated second and replays the same motion every run. Set `only`, `every` and `scale` in `shots.json` for quick previews.
+3. `python3 Tools/trailer/march.py` synthesizes the score with `Tools/music/synth.py` and writes `cues.json` with the cut times.
+4. `python3 Tools/trailer/barks.py` generates the vehicles' radio lines with edge-tts through `uvx`.
+5. `python3 Tools/trailer/cards.py` draws the title slam.
+6. `python3 Tools/trailer/assemble.py` cuts everything into `~/Movies/ValleyRail-Cinematic/valley-rail-cinematic-72s{,-nobarks,-720p}.mp4`. Add `--audio-only` to re-mix onto the last picture.
+
+The render test drives the simulation itself (GameBootstrap is disabled), so it never autosaves.
+
 ## Tests
 
 Fast simulation checks, without Unity:
