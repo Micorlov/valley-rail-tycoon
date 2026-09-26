@@ -19,3 +19,14 @@ Tests/obj/
 mono_crash.*.json
 .utmp/
 .claude/
+
+# Signing keys must never reach this repo — it is public.
+*.keystore
+*.jks
+*.p12
+*.pem
+keystore.properties
+
+# Python bytecode from the Tools scripts.
+__pycache__/
+*.pyc

@@ -129,7 +129,7 @@ namespace ValleyRail
             RefreshStationRows();
         }
         static int NextSpeed(int speed) => speed == 1 ? 2 : speed == 2 ? 4 : 1;
-        void TogglePause()
+        public void TogglePause()
         {
             int speed = app.Game.World.speed;
             if (speed > 0)

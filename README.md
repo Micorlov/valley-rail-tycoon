@@ -102,7 +102,7 @@ Manual and autosave slots are written below Unity's `Application.persistentDataP
 
 ## Build
 
-Use **Valley Rail → Build Android APK (development)**. This generates `Builds/ValleyRail.apk` with Android 10 minimum, ARM64, IL2CPP, OpenGL ES 3 and landscape orientation. The package identifier is `com.valleyrail.tycoon`. The APK is a development build signed with the debug keystore, not a store release. The app icon is generated art under `Assets/Game/Art` and is applied by Configure Project: the red steam engine charging out of Sunvale's skyline at sunset. The explicit PlayMode test `ValleyRail.Tests.AppIconRenderTests` (run it by name) opens the downtown fixture `Tests/Fixtures/phone-downtown.json` and renders the city and the engine over black and over white, and `python3 Tools/make_icon.py` mattes them, adds the sky, sun, steam and headlamp glow, and writes the adaptive layers, the legacy icon and a mask preview in `Logs/icon-preview.png`.
+Use **Valley Rail → Build Android APK (development)**. This generates `Builds/ValleyRail.apk` with Android 10 minimum, ARM64, IL2CPP, OpenGL ES 3 and landscape orientation. The package identifier is `com.valleyrail.tycoon`. The APK is a development build signed with the debug keystore, not a store release. The app icon is generated art under `Assets/Game/Art` and is applied by Configure Project: Oakridge's stadium beside its skyscrapers, lettered CITY and VALLEY RAIL. The explicit PlayMode test `ValleyRail.Tests.AppIconRenderTests.RendersTheStadiumSkylineForTheCityIcon` (run it by name) opens the grown world in `Tests/Fixtures/phone-stadium.json` and renders it from the game's own camera with the floating labels hidden (`Logs/icon-stadium.png`), and `python3 Tools/make_city_icon.py` crops and letters it and writes the adaptive layers (the city behind, the lettering in front, kept inside the circle mask), the legacy and Mac icons and a mask preview in `Logs/icon-preview.png`. The earlier icon, the red steam engine charging out of Sunvale's skyline at sunset, comes from the same class's `RendersTheCityAndEngineForTheAppIcon` and `Tools/make_icon.py`; whichever script runs last writes the icon.
 
 **Valley Rail → Build Android Release** (or `-executeMethod ValleyRail.Editor.ProjectSetup.BuildAndroidRelease`) produces `Builds/ValleyRail-release.apk`, or an `.aab` when `VALLEY_AAB=1`, without the development flag. It signs with your own keystore, which is read only from the environment and never stored in the project:
 
@@ -122,7 +122,39 @@ Batch command (adjust the editor path):
 
 If external Android tools are needed, provide `VALLEY_ANDROID_SDK`, `VALLEY_ANDROID_NDK` and `VALLEY_JAVA_HOME` environment variables. The build uses them temporarily and restores editor preferences afterward.
 
-**Valley Rail → Configure Project** recreates missing scene/configuration assets without overwriting the balance asset. **Build Mac Preview** creates a desktop preview.
+**Valley Rail → Configure Project** recreates missing scene/configuration assets without overwriting the balance asset.
+
+### macOS
+
+**Valley Rail → Build macOS App** (or `-executeMethod ValleyRail.Editor.ProjectSetup.BuildMac`) produces `Builds/Mac/Valley Rail.app`: one universal Mono binary for Intel and Apple silicon, Metal, Retina, 60 fps, bundle id `com.valleyrail.tycoon`. It opens borderless full screen at the display's resolution; Ctrl+Cmd+F (or F11, or the green button) switches to a resizable window. The Dock icon is `Assets/Game/Art/icon-mac.png`, which the icon script (`Tools/make_city_icon.py`) writes on Apple's rounded-square grid alongside the Android icons. The editor switches back to its previous build target afterwards. Unity signs the app ad hoc, so it runs on the Mac that built it; to share it, sign it with a Developer ID and notarize it. Saves go to `~/Library/Application Support/Valley Rail/Valley Rail/`.
+
+Unity's Input System sees a trackpad swipe only as a mouse wheel and never sees pinch or twist, so the Mac app carries a small native plugin, `Assets/Plugins/macOS/ValleyTrackpad.bundle` (Mac player only), that watches the app's own event stream and hands the camera each frame's pinch, twist and swipe (`Presentation/MacTrackpad.cs`). Its source is `Native/macOS/ValleyTrackpad.m`; after editing it, run `Tools/build_trackpad_plugin.sh`, which runs the plugin's checks and rebuilds the universal bundle.
+
+| Desktop control | Action |
+|---|---|
+| Left drag / click (or trackpad tap) | Pan / inspect, as a finger does; in Track mode, drag draws track |
+| Right or middle drag | Pan in every mode, including while laying track |
+| Trackpad two-finger swipe | Pan in every mode (follows the system's natural-scrolling setting); over a panel it scrolls the panel |
+| Trackpad pinch, mouse wheel, Cmd + two-finger swipe, + / - | Zoom |
+| Trackpad two-finger twist | Turn the view a quarter turn (one turn per twist of about 30°) |
+| WASD / arrow keys (Shift = faster) | Pan |
+| Q / E | Turn the view a quarter turn either way (E matches the rotate button) |
+| Space · 1 / 2 / 3 | Pause or resume · speed 1x / 2x / 4x |
+| Escape | Close panels and menus, leave a tool, open the menu |
+| Cmd+Q, or QUIT GAME on the title screen | Quit (the game autosaves first) |
+
+### Cinematic trailer
+
+A 72 s trailer in the style of the Red Alert 2 opening cinematic. Every shot is rendered in-engine from the downtown fixture by low perspective cameras, then graded, letterboxed to 2.39:1 and cut to an original march. The steps, in order:
+
+1. `Tools/trailer/render.sh SurveysTheWorld` writes `Logs/trailer/survey.png` (a top-down map) and `survey.json` (towns, stations, bridges, and where every train is each second).
+2. `Tools/trailer/render.sh RendersTheTrailerShots` renders every shot in `Tools/trailer/shots.json` to `Logs/trailer/<shot>/NNNN.jpg`. It uses 24 frames per simulated second and replays the same motion every run. Set `only`, `every` and `scale` in `shots.json` for quick previews.
+3. `python3 Tools/trailer/march.py` synthesizes the score with `Tools/music/synth.py` and writes `cues.json` with the cut times.
+4. `python3 Tools/trailer/barks.py` generates the vehicles' radio lines with edge-tts through `uvx`.
+5. `python3 Tools/trailer/cards.py` draws the title slam.
+6. `python3 Tools/trailer/assemble.py` cuts everything into `~/Movies/ValleyRail-Cinematic/valley-rail-cinematic-72s{,-nobarks,-720p}.mp4`. Add `--audio-only` to re-mix onto the last picture.
+
+The render test drives the simulation itself (GameBootstrap is disabled), so it never autosaves.
 
 ## Tests
 

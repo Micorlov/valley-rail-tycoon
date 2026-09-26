@@ -28,6 +28,8 @@ from PIL import Image, ImageChops, ImageDraw, ImageEnhance, ImageFilter
 ROOT = Path(__file__).resolve().parent.parent
 LAYER = 432  # adaptive layers are 108 dp; 432 px is the xxxhdpi size
 LEGACY = 512
+MAC, MAC_BODY, MAC_RADIUS = 1024, 824, 185  # Apple's macOS icon grid: canvas, rounded-square body and its corner radius
+MAC_SHADOW_ALPHA, MAC_SHADOW_DROP, MAC_SHADOW_BLUR = 80, 10, 12
 VISIBLE = 72 / 108  # share of an adaptive layer that any launcher mask can show
 # The square a launcher mask shows, in render pixels: centre and side. The towers rise to the top edge, with sky and
 # the sun between them, and the engine spans well over half its width.
@@ -197,6 +199,22 @@ def mask(shape, size):
     return image.resize((size, size), Image.LANCZOS)
 
 
+def mac_icon(face):
+    """macOS Dock icon: the visible face on Apple's rounded square (824 px, corner 185) with a soft drop shadow, in 1024 px."""
+    body = face.convert("RGBa").resize((MAC_BODY, MAC_BODY), Image.LANCZOS).convert("RGBA")
+    big = MAC_BODY * 4
+    shape = Image.new("L", (big, big))
+    ImageDraw.Draw(shape).rounded_rectangle((0, 0, big - 1, big - 1), radius=MAC_RADIUS * 4, fill=255)
+    shape = shape.resize((MAC_BODY, MAC_BODY), Image.LANCZOS)
+    body.putalpha(ImageChops.multiply(body.getchannel("A"), shape))
+    margin = (MAC - MAC_BODY) // 2
+    shadow = Image.new("RGBA", (MAC, MAC), (0, 0, 0, 0))
+    shadow.paste((0, 0, 0, MAC_SHADOW_ALPHA), (margin, margin + MAC_SHADOW_DROP, margin + MAC_BODY, margin + MAC_SHADOW_DROP + MAC_BODY), shape)
+    icon = shadow.filter(ImageFilter.GaussianBlur(MAC_SHADOW_BLUR))
+    icon.alpha_composite(body, (margin, margin))
+    return icon
+
+
 def preview(adaptive, legacy):
     """Top, on light wallpaper: each mask at 192 px and the legacy icon. Bottom, on dark: each mask at 96 and 48 px."""
     pad, large = 24, 192
@@ -234,9 +252,10 @@ def main(argv):
     reduced(back, LAYER).convert("RGB").save(args.art / "icon-bg.png", optimize=True)
     reduced(front, LAYER).save(args.art / "icon-fg.png", optimize=True)
     legacy.save(args.art / "icon-legacy.png", optimize=True)
+    mac_icon(visible(whole)).save(args.art / "icon-mac.png", optimize=True)
     args.preview.parent.mkdir(parents=True, exist_ok=True)
     preview(reduced(whole, LAYER).convert("RGB"), legacy).save(args.preview)
-    print(f"Wrote icon-bg.png, icon-fg.png and icon-legacy.png to {args.art}, preview {args.preview}")
+    print(f"Wrote icon-bg.png, icon-fg.png, icon-legacy.png and icon-mac.png to {args.art}, preview {args.preview}")
 
 
 if __name__ == "__main__":
