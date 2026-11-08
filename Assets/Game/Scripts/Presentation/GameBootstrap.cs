@@ -89,6 +89,7 @@ namespace ValleyRail
             gameObject.AddComponent<ThemeMusic>().app = this;
             Sfx = gameObject.AddComponent<SoundEffects>();
             Sfx.app = this;
+            gameObject.AddComponent<GameAds>();
             BuildSession(WorldState.New(balance));
             Title();
         }

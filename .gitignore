@@ -30,3 +30,14 @@ keystore.properties
 # Python bytecode from the Tools scripts.
 __pycache__/
 *.pyc
+
+# Google Mobile Ads plugin, fetched by Tools/install_admob.sh and never committed. Only its settings asset is
+# ours: it holds the AdMob app ID and turns off the plugin's EDM install and gradle-template rewriting
+# (Assets/Game/Scripts/Editor/AdMobDependencies.cs adds the Android dependencies instead).
+/Assets/GoogleMobileAds/*
+!/Assets/GoogleMobileAds/Resources/
+/Assets/GoogleMobileAds.meta
+/Assets/Plugins/Android/
+/Assets/Plugins/Android.meta
+/Assets/Plugins/iOS/
+/Assets/Plugins/iOS.meta

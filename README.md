@@ -2,6 +2,8 @@
 
 A small, offline Unity train tycoon for Android. Build independent railways, connect industries and towns, and run coal, goods, and passenger services through a handcrafted low-poly valley.
 
+Android builds show Google AdMob ads: a bottom banner on the title and play screens (the UI is lifted above it) and an occasional interstitial when you return to the title (at most one per 90 s, never after the first session of the first launch). Consent (UMP) is asked before any ad loads. Install the plugin once per checkout with `Tools/install_admob.sh` (it is not committed); unit IDs and the test-ads switch live in `Assets/Game/Scripts/Presentation/Ads/AdConfig.cs`.
+
 ## Open and play
 
 1. Open this folder in **Unity 6000.5.8f1**. Package versions are pinned in `Packages/manifest.json` and `Packages/packages-lock.json`.

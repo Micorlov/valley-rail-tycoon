@@ -121,9 +121,12 @@ namespace ValleyRail
             menu.gameObject.SetActive(false);
             BuildFade();
         }
+        /// <summary>Screen pixels the bottom ad banner covers (0 without one). It sits on the bottom safe-area inset, so the UI ends above both.</summary>
+        public static float BannerPixels;
         void SafeArea()
         {
             var area = Screen.safeArea;
+            area.yMin += BannerPixels;
             safe.anchorMin = area.position / new Vector2(Screen.width, Screen.height);
             safe.anchorMax = (area.position + area.size) / new Vector2(Screen.width, Screen.height);
             safe.offsetMin = safe.offsetMax = Vector2.zero;
@@ -478,7 +481,7 @@ namespace ValleyRail
             y -= step;
             if (!start)
             {
-                Button(menuBody, "RETURN TO TITLE", app.Title, new Vector2(40, y), new Vector2(520, 96));
+                Button(menuBody, "RETURN TO TITLE", () => { app.Title(); app.GetComponent<GameAds>()?.GameFinished(); }, new Vector2(40, y), new Vector2(520, 96));
                 y -= step;
             }
             else if (DesktopControls.IsDesktop)

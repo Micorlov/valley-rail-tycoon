@@ -76,6 +76,8 @@ namespace ValleyRail.Editor
                 PlayerSettings.Android.bundleVersionCode = versionCode;
             ApplyIcons();
             ConfigureMac();
+            // Ads code compiles only once Tools/install_admob.sh has unpacked the (uncommitted) Google Mobile Ads plugin.
+            ConfigureDefine(UnityEditor.Build.NamedBuildTarget.Android, "ADMOB_SDK", "Assets/GoogleMobileAds/GoogleMobileAds.dll");
             // Both input handlers: the Input System drives touch and UI; the legacy manager guarantees the Android Back
             // key is seen on its first press. Serialized setting avoids dependency on editor-only package APIs.
             var settings = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/ProjectSettings.asset")[0]);
@@ -103,6 +105,15 @@ namespace ValleyRail.Editor
             AssetDatabase.SaveAssets();
             EditorSceneManager.OpenScene(builds[0].path);
             Debug.Log("VALLEY_RAIL_CONFIGURED");
+        }
+        static void ConfigureDefine(UnityEditor.Build.NamedBuildTarget target, string define, string sdkFile)
+        {
+            PlayerSettings.GetScriptingDefineSymbols(target, out var current);
+            var defines = new System.Collections.Generic.List<string>(current);
+            defines.Remove(define);
+            if (File.Exists(sdkFile))
+                defines.Add(define);
+            PlayerSettings.SetScriptingDefineSymbols(target, defines.ToArray());
         }
         // Android icons: legacy and round slots use the full-bleed art; adaptive icons layer the art over the meadow gradient.
         // The Android icon kinds live in the platform extension assembly, so they are resolved by name like the tool settings below.
