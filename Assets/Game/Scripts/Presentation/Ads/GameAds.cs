@@ -91,7 +91,9 @@ namespace ValleyRail
         {
             if (!started || banner != null || System.DateTime.UtcNow < bannerRetryAt)
                 return;
-            var size = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
+            // Landscape: the side insets (nav bar / cutout) lie outside the banner's area, so FullWidth would overhang the right edge.
+            var size = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(
+                Mathf.FloorToInt(Screen.safeArea.width / MobileAds.Utils.GetDeviceScale()));
             var view = new BannerView(AdConfig.BannerUnit, size, AdPosition.Bottom);
             banner = view;
             bannerLoaded = false;
@@ -101,7 +103,7 @@ namespace ValleyRail
                 // AdPosition.Bottom draws under the edge-to-edge navigation bar; sit the banner just above the bottom safe-area inset instead.
                 float scale = MobileAds.Utils.GetDeviceScale();
                 float h = view.GetHeightInPixels();
-                view.SetPosition(0, Mathf.RoundToInt((Screen.height - Screen.safeArea.yMin - h) / scale));
+                view.SetPosition(Mathf.RoundToInt(Screen.safeArea.xMin / scale), Mathf.RoundToInt((Screen.height - Screen.safeArea.yMin - h) / scale));
             };
             view.OnBannerAdLoadFailed += error =>
             {
