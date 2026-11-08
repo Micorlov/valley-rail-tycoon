@@ -4,7 +4,7 @@ namespace ValleyRail
     public static class AdConfig
     {
         /// <summary>Flip to false for a Play release; until then every build shows Google's sample ads.</summary>
-        public const bool USE_TEST_ADS = true;
+        public const bool USE_TEST_ADS = false;
 
         // Google's public sample units.
         const string TestBanner = "ca-app-pub-3940256099942544/9214589741";
