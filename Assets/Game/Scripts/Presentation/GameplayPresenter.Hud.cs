@@ -14,7 +14,7 @@ namespace ValleyRail
         const float NoticeFade = .5f, GestureAlpha = .12f, FadeRate = 6f;
         const float Margin = 20, Gap = 10, MoneyWidth = 440, TopRow = 104, IconSize = 96, ToolHeight = 110, MinToastWidth = 480;
         static readonly string[] trayNames = { "TRACK", "STATION", "BULLDOZE", "LIGHT RAIL" };
-        RectTransform hud, controls, tools, view, guidance, pauseButton, speedButton, stationsButton, trainsButton, buildButton, activeTool, doneButton, closeTray;
+        RectTransform hud, controls, tools, view, guidance, pauseButton, speedButton, stationsButton, trainsButton, buildButton, autoRouteButton, activeTool, doneButton, closeTray;
         readonly RectTransform[] trayButtons = new RectTransform[4];
         TMP_Text money, stats, hint;
         CanvasGroup[] fadeGroups;
@@ -42,6 +42,7 @@ namespace ValleyRail
             tools = Panel("Tools", safe, Color.clear);
             tools.GetComponent<UnityEngine.UI.Image>().raycastTarget = false;
             Place(tools, 0, 0, 1, 0, Margin, Margin, -Margin, Margin + ToolHeight);
+            autoRouteButton = Button(tools, "AUTO ROUTE", AutoRouteFrom, Vector2.zero, new Vector2(230, ToolHeight), true);
             stationsButton = Button(tools, "STATIONS", StationList, Vector2.zero, new Vector2(200, ToolHeight));
             trainsButton = Button(tools, "TRAINS", () => app.ChooseTool(ToolMode.Trains), Vector2.zero, new Vector2(170, ToolHeight));
             buildButton = Button(tools, "BUILD", () => trayOpen = true, Vector2.zero, new Vector2(200, ToolHeight), true);
@@ -111,6 +112,26 @@ namespace ValleyRail
             hudAlpha = Mathf.MoveTowards(hudAlpha, gesturing ? GestureAlpha : 1, Time.unscaledDeltaTime * FadeRate);
             foreach (var group in fadeGroups)
                 group.alpha = hudAlpha;
+            // A new game opens on AUTO ROUTE, so the first railway takes two taps instead of the track tools.
+            if (playing && app.OfferAutoRoute && hud.gameObject.activeSelf)
+            {
+                app.OfferAutoRoute = false;
+                AutoRouteFrom();
+            }
+            // CLOSE rides along as a long window scrolls, so it stays in the corner and on top of the list.
+            if (contextClose && context.gameObject.activeSelf)
+            {
+                float scrolled = Mathf.Max(0, contextBody.anchoredPosition.y);
+                contextClose.anchoredPosition = new Vector2(contextClose.anchoredPosition.x, -16 - scrolled);
+                if (contextClose.GetSiblingIndex() != contextBody.childCount - 1)
+                {
+                    contextShade.SetAsLastSibling();
+                    contextClose.SetAsLastSibling();
+                }
+                contextShade.anchoredPosition = new Vector2(0, -scrolled);
+                if (contextShade.gameObject.activeSelf != scrolled > 1)
+                    contextShade.gameObject.SetActive(scrolled > 1);
+            }
             RefreshTools();
             RefreshGuidance(playing);
         }
@@ -118,6 +139,7 @@ namespace ValleyRail
         {
             var w = app.Game.World;
             money.text = "$" + w.money.ToString("N0");
+            money.color = app.MoneyLow ? warning : cream;
             EconomyService.Recent(w, out int income, out int expense);
             stats.text = $"+${income:N0}  -${expense:N0}/min  ·  {w.trains.Count} train{(w.trains.Count == 1 ? "" : "s")}";
             if (w.speed > 0)
@@ -217,7 +239,7 @@ namespace ValleyRail
                     ShowRow(activeTool, doneButton);
             }
             else
-                ShowRow(stationsButton, trainsButton, buildButton);
+                ShowRow(autoRouteButton, stationsButton, trainsButton, buildButton);
         }
         void ShowRow(params RectTransform[] row)
         {

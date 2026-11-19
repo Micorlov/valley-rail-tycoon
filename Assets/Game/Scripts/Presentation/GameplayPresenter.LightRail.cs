@@ -180,7 +180,7 @@ namespace ValleyRail
             var year = line.accounts.LastYear(tick);
             var status = app.Game.Trams.Status(line);
             string where = TramCatalog.KindName(line.venueKind).ToLowerInvariant();
-            return $"{(station != null ? station.name : "Station gone")} ⇄ {where} · {line.cells.Count} cells\n" +
+            return $"{(station != null ? station.name : "Station gone")} ↔ {where} · {line.cells.Count} cells\n" +
                 $"{TramService.Describe(status)} · {line.trams.Count}/{TramCatalog.TramsFor(line.cells.Count)} trams · ${TramCatalog.Fare(app.Game.Balance, line.cells.Count)} a ride\n" +
                 $"Waiting: {line.waitingOut} at the station · {line.waitingBack} at the {where} · {line.visitors:N0} visiting\n" +
                 $"{Verdict(year)} · Month {Signed(month.Profit)} · Year {Signed(year.Profit)}";

@@ -110,7 +110,8 @@ namespace ValleyRail.Core
     {
         public int startingMoney = 50000, straightCost = 100, curveCost = 120, junctionCost = 200, bridgeCost = 1500, stationCost = 2000, treeClearCost = 50;
         public int[] trainPrice = { 8000, 14000, 10000, 22000, 6000, 26000 }, capacity = { 30, 45, 40, 90, 24, 64 }, speed = { 2000, 3000, 3000, 1500, 2500, 4500 }, runningCost = { 20, 35, 25, 50, 12, 65 };
-        public int[] production = { 20, 15, 20 }, rate = { 2, 3, 2 };
+        // Passengers pay half a freight unit's rate: they travel both ways, so a town line fills its train in each direction.
+        public int[] production = { 20, 15, 20 }, rate = { 2, 3, 1 };
         public int storage = 200, dwellTicks = 60;
         // Existing balance assets contain only the original three cargo entries.
         public int CargoRate(Cargo cargo) => (int)cargo < rate.Length ? rate[(int)cargo] : cargo == Cargo.Steel ? 4 : 3;

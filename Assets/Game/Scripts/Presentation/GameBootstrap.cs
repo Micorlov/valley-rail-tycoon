@@ -74,6 +74,10 @@ namespace ValleyRail
             DontDestroyOnLoad(gameObject);
             Application.targetFrameRate = DesktopControls.IsDesktop ? DesktopControls.FrameRate : 30;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            // Android emulators give no multisampled screen surface, and with 2x MSAA the pipeline then draws a black screen.
+            if (Application.platform == RuntimePlatform.Android && SystemInfo.deviceModel.Contains("sdk_gphone") &&
+                UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline is UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset pipeline)
+                pipeline.msaaSampleCount = 1;
             var config = Resources.Load<GameBalance>("GameBalance");
             balance = config ? config.values : new Balance();
             saves = new SaveService(Application.isBatchMode ? System.IO.Path.Combine(Application.temporaryCachePath, "ValleyRailTestSaves") : Application.persistentDataPath, new JsonSnapshotCodec(), balance);
@@ -189,9 +193,38 @@ namespace ValleyRail
             {
                 hud = 0;
                 if (!InMenu)
-                    Tutorial.Advance(Game.World);
+                {
+                    int reward = Tutorial.Advance(Game.World);
+                    if (reward > 0)
+                    {
+                        Notice = $"Goal complete! +${reward:N0}";
+                        Sfx.Ui(SoundCue.TownLevelUp);
+                    }
+                    WarnLowMoney();
+                }
                 UI.UpdateHud();
             }
+        }
+        /// <summary>True while money is below <see cref="LowMoney"/>; trains stop when it reaches $0.</summary>
+        public bool MoneyLow { get; private set; }
+        /// <summary>Warn with room for about three minutes of running costs, and never below $1,000.</summary>
+        public int LowMoney
+        {
+            get
+            {
+                EconomyService.Recent(Game.World, out _, out int expense);
+                return System.Math.Max(1000, expense * 3);
+            }
+        }
+        void WarnLowMoney()
+        {
+            bool low = Game.World.trains.Count > 0 && Game.World.money < LowMoney;
+            if (low && !MoneyLow)
+            {
+                Notice = $"Money is low (${Game.World.money:N0}). Trains stop at $0: let them deliver, or sell a train.";
+                Sfx.Ui(SoundCue.Error);
+            }
+            MoneyLow = low;
         }
         void RecordPerf(int ticks)
         {
@@ -256,6 +289,8 @@ namespace ValleyRail
             UI.UpdateHud();
             return result;
         }
+        /// <summary>Set by NEW GAME on the title screen: the HUD opens the AUTO ROUTE window once it is on screen.</summary>
+        public bool OfferAutoRoute;
         public void NewGame(bool demo)
         {
             BuildSession(WorldState.New(balance));
@@ -282,6 +317,13 @@ namespace ValleyRail
         {
             if (MenuOpen)
                 return;
+            // Trams feed on train passengers, so light rail opens once the first train has delivered.
+            if (mode == ToolMode.LightRail && Game.World.delivered == 0)
+            {
+                Notice = "LIGHT RAIL opens after your first delivery. Tap AUTO ROUTE to start a railway.";
+                Sfx.Ui(SoundCue.Error);
+                return;
+            }
             Mode = mode;
             CancelPreview();
             World.SetBuildGrid(mode == ToolMode.Track || mode == ToolMode.Station);

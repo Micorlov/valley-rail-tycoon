@@ -30,6 +30,7 @@ namespace ValleyRail.Tests
             yield return null;
             var game = app.Game;
             game.World.money = 500000;
+            game.World.delivered = 1; // light rail opens after the first delivery
             Assert.That(game.Build.CommitBuild(game.Build.Preview(new Cell(14, 46), new Cell(50, 46))).ok);
             var placed = game.Stations.Place(new Cell(48, 46), 5);
             Assert.That(placed.ok, placed.message);
@@ -108,7 +109,8 @@ namespace ValleyRail.Tests
                     Assert.That(float.IsNaN(t.position.x) || t.position.y < 0, Is.False, t.name);
                 }
             Assert.That(shown, Is.EqualTo(3), "one tram of three sections runs");
-            Assert.That(app.World.GetComponentsInChildren<Collider>(true), Is.Empty, "no physics: the player build strips it");
+            // Only the terrain carries colliders (the camera raycasts it); trams and their figures must add none.
+            Assert.That(trams.GetComponentsInChildren<Collider>(true), Is.Empty, "no physics: the player build strips it");
             Assert.That(app.World.transform.Find("Light rail").childCount, Is.GreaterThan(0), "track, wires and stops are drawn");
             bool blocks = false;
             foreach (var c in line.cells)

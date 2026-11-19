@@ -49,7 +49,9 @@ namespace ValleyRail.Core
         public const int MinFareCells = 8, MaxFareCells = 32;
         /// <summary>How many trams a line of <paramref name="cells"/> cells can run: one per four cells, up to MaxTrams.</summary>
         public static int TramsFor(int cells) => Math.Max(1, Math.Min(MaxTrams, cells / 4));
-        public static int Fare(Balance b, int cells) => b.CargoRate(Cargo.Passengers) * Math.Max(MinFareCells, Math.Min(MaxFareCells, cells - 1));
+        /// <summary>A rider's fare per cell of line. Its own number: the train passenger rate is balanced against freight, not trams.</summary>
+        public const int FarePerCell = 2;
+        public static int Fare(Balance b, int cells) => FarePerCell * Math.Max(MinFareCells, Math.Min(MaxFareCells, cells - 1));
         /// <summary>Riders a minute who come from the town's station queue to go to the venue.</summary>
         public static int LocalRate(int kind) => kind == (int)TramVenueKind.Beach ? 16 : 12;
         /// <summary>Riders a minute the venue itself sends to the station (fans, bathers and skiers heading for a train).</summary>

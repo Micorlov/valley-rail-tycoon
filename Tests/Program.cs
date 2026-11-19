@@ -985,8 +985,29 @@ partial class Program
         // The guided steps follow world state, fast-forward through completed work, and end after the first deliveries.
         var tut=New();Assert(tut.World.tutorialStep==1&&Tutorial.Text(tut.World).StartsWith("1/5"),"Tutorial starts at step 1");
         Coal(tut);Tutorial.Advance(tut.World);Assert(tut.World.tutorialStep==5,"Tutorial fast-forwards through completed steps: "+tut.World.tutorialStep);
-        for(int i=0;i<1200;i++)tut.Step();Tutorial.Advance(tut.World);Assert(tut.World.tutorialStep==6&&Tutorial.Text(tut.World).StartsWith("Delivered"),"First delivery completes the guided steps");
-        tut.World.delivered=100;Tutorial.Advance(tut.World);Assert(tut.World.tutorialStep==0&&Tutorial.Text(tut.World)==null,"Tutorial ends and has no text");
+        for(int i=0;i<1200;i++)tut.Step();Tutorial.Advance(tut.World);Assert(tut.World.tutorialStep==Tutorial.FirstGoal&&Tutorial.Text(tut.World).StartsWith("GOAL 1/9"),"First delivery completes the guided steps and opens the goals");
+        int tutMoney=tut.World.money;tut.World.delivered=Tutorial.DeliveryGoal;Assert(Tutorial.Advance(tut.World)==Tutorial.Reward(6)&&Tutorial.Reward(6)>0&&tut.World.money==tutMoney+Tutorial.Reward(6)&&tut.World.tutorialStep==Tutorial.FirstGoal+1&&Tutorial.Advance(tut.World)==0,"A goal pays its reward once and moves on");
+        tut.World.tutorialStep=10;tut.World.tramLines.Add(new TramLineState());Assert(Tutorial.Advance(tut.World)==Tutorial.Reward(10)&&tut.World.tutorialStep==11&&Tutorial.Text(tut.World).StartsWith("GOAL 6/9"),"Light rail opens the long-term goals");
+        tut.World.tutorialStep=Tutorial.LastGoal;tut.World.money=Tutorial.BankGoal;Assert(Tutorial.Advance(tut.World)==Tutorial.Reward(Tutorial.LastGoal),"The last goal pays at $1,000,000");Assert(tut.World.tutorialStep==0&&Tutorial.Text(tut.World)==null,"Tutorial ends after the last goal and has no text");
+        // AUTO ROUTE: a quote changes nothing; building it lays the whole line and the train delivers by itself.
+        var auto=New();int autoMoney=auto.World.money;Assert(AutoRoute.Targets(auto.World,auto.Cargo.Producer(1)).Exists(p=>p.id==2)&&!AutoRoute.Plan(auto,1,4).valid,"Auto route offers only places that use the cargo");
+        var quote=AutoRoute.Plan(auto,1,2);Assert(quote.valid&&quote.cost>0&&auto.World.money==autoMoney&&auto.World.stations.Count==0&&auto.World.tracks.Count==0&&auto.World.trains.Count==0,"Auto route quote prices the line without building: "+quote.reason);
+        OK(AutoRoute.Build(auto,1,2));Assert(auto.World.stations.Count==2&&auto.World.trains.Count==1&&auto.World.trains[0].a!=0&&auto.World.money==autoMoney-quote.cost,"Auto route builds two stations, track and a running train for its quote");
+        for(int i=0;i<3600;i++)auto.Step();Assert(auto.World.delivered>0,"The auto-built coal line delivers");
+        // Places nobody serves hold a couple of trainloads, so a line built late does not open with a windfall.
+        var unserved=New();for(int i=0;i<24000;i++)unserved.Cargo.Step();Assert(unserved.Cargo.Producer(1).inventory==CargoService.UnservedStock&&unserved.Cargo.Producer(4).inventory==CargoService.UnservedStock,"Unserved stock stops at "+CargoService.UnservedStock+": mine "+unserved.Cargo.Producer(1).inventory+", town "+unserved.Cargo.Producer(4).inventory);
+        Assert(auto.World.stations.Exists(st=>st.producerId==1)&&AutoRoute.Plan(unserved,1,2).valid,"A served mine keeps its full storage and idle places can still be connected");
+        // The goals walk a player through every line AUTO ROUTE can build, paying a reward for each.
+        int Place(string n)=>auto.World.producers.Find(p=>p.name==n).id;
+        auto.World.money+=100000;auto.World.delivered=Math.Max(auto.World.delivered,Tutorial.DeliveryGoal);
+        OK(AutoRoute.Build(auto,Place("Willowbrook"),Place("Oakridge")));
+        OK(AutoRoute.Build(auto,Place("Pinewood Forest"),Place("Westwood Sawmill")));
+        OK(AutoRoute.Build(auto,Place("Westwood Sawmill"),Place("Willowbrook")));
+        Assert(Tutorial.Advance(auto.World)==Tutorial.Reward(6)&&auto.World.tutorialStep==7,"A line goal waits for its first delivery, not the purchase: step "+auto.World.tutorialStep);
+        int goalPay=0;for(int i=0;i<9600;i++){auto.Step();if(i%20==0)goalPay+=Tutorial.Advance(auto.World);}
+        Assert(auto.World.tutorialStep==10&&goalPay==Tutorial.Reward(7)+Tutorial.Reward(8)+Tutorial.Reward(9),"AUTO ROUTE lines deliver passengers, wood and goods for goals 2-4: paid "+goalPay+" at step "+auto.World.tutorialStep);
+        var autoWatch=System.Diagnostics.Stopwatch.StartNew();var far=AutoRoute.Plan(New(),Place("Lakewood"),Place("Frostford"));autoWatch.Stop();
+        Console.WriteLine($"Auto route Lakewood → Frostford: {(far.valid?"$"+far.cost.ToString("N0"):far.reason)} planned in {autoWatch.ElapsedMilliseconds} ms");
         // Milestone 5 acceptance: invalid station placements and route assignments are refused without side effects.
         var st=New();Track(st,new Cell(8,15),new Cell(50,15));OK(st.Build.CommitBuild(st.Build.ValidateBuild(new List<Cell>{new Cell(6,13),new Cell(7,13),new Cell(7,14),new Cell(7,15)})));int stMoney=st.World.money;
         Assert(!st.Stations.Place(new Cell(31,15),2).ok,"Station on a bridge rejected");

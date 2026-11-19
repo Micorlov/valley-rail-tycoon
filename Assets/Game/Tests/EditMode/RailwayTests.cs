@@ -301,9 +301,17 @@ namespace ValleyRail.Tests
             for (int i = 0; i < 1200; i++)
                 game.Step();
             Tutorial.Advance(game.World);
-            Assert.That(game.World.tutorialStep, Is.EqualTo(6));
-            game.World.delivered = 100;
-            Tutorial.Advance(game.World);
+            Assert.That(game.World.tutorialStep, Is.EqualTo(Tutorial.FirstGoal));
+            Assert.That(Tutorial.Text(game.World), Does.StartWith("GOAL 1/9"));
+            int money = game.World.money;
+            game.World.delivered = Tutorial.DeliveryGoal;
+            Assert.That(Tutorial.Advance(game.World), Is.EqualTo(Tutorial.Reward(Tutorial.FirstGoal)), "a goal pays its reward once");
+            Assert.That(game.World.money, Is.EqualTo(money + Tutorial.Reward(Tutorial.FirstGoal)));
+            Assert.That(game.World.tutorialStep, Is.EqualTo(Tutorial.FirstGoal + 1));
+            Assert.That(Tutorial.Advance(game.World), Is.EqualTo(0));
+            game.World.tutorialStep = Tutorial.LastGoal;
+            game.World.money = Tutorial.BankGoal;
+            Assert.That(Tutorial.Advance(game.World), Is.EqualTo(Tutorial.Reward(Tutorial.LastGoal)));
             Assert.That(game.World.tutorialStep, Is.EqualTo(0));
             Assert.That(Tutorial.Text(game.World), Is.Null);
         }

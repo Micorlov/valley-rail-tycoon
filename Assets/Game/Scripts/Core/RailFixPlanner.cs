@@ -51,6 +51,8 @@ namespace ValleyRail.Core
         readonly StateHeap open = new StateHeap();
         readonly HashSet<int> guarded = new HashSet<int>(), blocked = new HashSet<int>();
         int[] cost, parent;
+        // AUTO ROUTE aims the fix at one industry or town; 0 lets the planner pick any stop.
+        int only;
         /// <summary>Without <paramref name="stations"/> the planner never proposes a new station (the what-if planners it builds itself).</summary>
         public RailFixPlanner(WorldState w, RailNetwork net, RailPathfinder paths, BuildService build, TrainSimulation trains, Balance b,
             StationService stations = null, CitySimulation cities = null, Scenery scenery = null)
@@ -65,8 +67,9 @@ namespace ValleyRail.Core
             this.cities = cities;
             this.scenery = scenery;
         }
-        public RailFix Plan(int trainId)
+        public RailFix Plan(int trainId, int targetId = 0)
         {
+            only = targetId;
             var fix = new RailFix { trainId = trainId };
             var t = trains.Train(trainId);
             if (t == null)
@@ -83,11 +86,11 @@ namespace ValleyRail.Core
             Prepare(t);
             bool direct = false, feeder = false;
             string problem = null;
-            var best = Choose(origin, start, stop => trains.Delivers(origin, stop, t.cargo), ref direct, ref problem);
+            var best = Choose(origin, start, stop => Aimed(stop) && trains.Delivers(origin, stop, t.cargo), ref direct, ref problem);
             string note = null;
             if (best == null)
             {
-                best = Choose(origin, start, stop => trains.Feeds(origin, stop, t.cargo), ref feeder, ref problem);
+                best = Choose(origin, start, stop => Aimed(stop) && trains.Feeds(origin, stop, t.cargo), ref feeder, ref problem);
                 fix.transfer = best != null;
                 if (best != null)
                     note = TransferNote(best.station, t.cargo);
@@ -96,6 +99,7 @@ namespace ValleyRail.Core
                 return stations != null ? PlanNewStation(fix, t, origin, start, direct, problem) : Refuse(fix, problem ?? "No route.");
             return Quote(fix, origin, best, note == null ? Diagnose(start, best.end) : Diagnose(start, best.end) + "\n" + note);
         }
+        bool Aimed(StationState stop) => only == 0 || stop.producerId == only;
         /// <summary>
         /// The best priced route to any platform of an eligible stop. Among those, a plan the player can pay for now beats a
         /// cheaper-to-run one they cannot. Null when none can be built; <paramref name="compatible"/> records that a stop existed.
@@ -168,9 +172,9 @@ namespace ValleyRail.Core
         /// Plans again against the current state, builds the fix and starts the route. With <paramref name="quoted"/> (the fix the
         /// player was shown) it refuses when the railway has changed since, so the player never pays for a plan they did not see.
         /// </summary>
-        public Result Apply(int trainId, RailFix quoted = null)
+        public Result Apply(int trainId, RailFix quoted = null, int targetId = 0)
         {
-            var fix = Plan(trainId);
+            var fix = Plan(trainId, targetId);
             if (!fix.valid)
                 return Result.Fail(fix.reason);
             if (quoted != null && Differs(fix, quoted))
@@ -181,7 +185,7 @@ namespace ValleyRail.Core
             if (!placed.ok)
                 return placed;
             // The station is now an ordinary stop, and the same search on the same railway finds the same route to it.
-            var route = Plan(trainId);
+            var route = Plan(trainId, targetId);
             if (!route.valid || route.toStationId != placed.id)
                 return Result.Fail($"{trains.Station(placed.id).name} is built, but its route changed. Tap AI FIX RAILS again.");
             return Commit(route, "AI built a station and fixed the line to");
@@ -263,12 +267,12 @@ namespace ValleyRail.Core
         /// <summary>The industries or towns nearest the train that would complete this cargo's journey from <paramref name="from"/>.</summary>
         List<ProducerState> Targets(ProducerState from, Cargo cargo, Cell start)
         {
-            var list = w.producers.FindAll(p => p.id != from.id && CargoTransfer.Delivers(from.kind, p.kind, cargo));
+            var list = w.producers.FindAll(p => p.id != from.id && (only == 0 || p.id == only) && CargoTransfer.Delivers(from.kind, p.kind, cargo));
             list.Sort((x, y) => x.cell.Distance(start) != y.cell.Distance(start) ? x.cell.Distance(start).CompareTo(y.cell.Distance(start)) : x.id.CompareTo(y.id));
             return list.GetRange(0, Math.Min(MaxTargets, list.Count));
         }
         /// <summary>Buildable 3 × 1 station sites serving <paramref name="target"/>, the ones closest to the train first.</summary>
-        List<StationPlan> Sites(ProducerState target, Cell start)
+        public List<StationPlan> Sites(ProducerState target, Cell start)
         {
             var city = target.kind == ProducerKind.Town ? cities.CityFor(target.id) : null;
             int minX = target.cell.x, maxX = target.cell.x, minZ = target.cell.z, maxZ = target.cell.z;
