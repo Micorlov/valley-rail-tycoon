@@ -58,8 +58,8 @@ namespace ValleyRail
         }
         /// <summary>The control line under the title and pause menus.</summary>
         public static string MenuHint(bool desktop) => desktop
-            ? "Drag, WASD or two-finger swipe to move · Pinch to zoom\nTwist or Q / E to turn · Wheel zooms · Space pauses\nBuild tracks near an industry, then add a station."
-            : "Drag to explore · Pinch / scroll to zoom\nBuild tracks near an industry, then add a station.";
+            ? "Drag, WASD or two-finger swipe to move · Pinch to zoom\nTwist or Q / E to turn · Wheel zooms · Space pauses\nAUTO ROUTE builds a whole railway: pick two places."
+            : "Drag to explore · Pinch / scroll to zoom\nAUTO ROUTE builds a whole railway: pick two places.";
         /// <summary>Window size when leaving full screen on a display of the given size.</summary>
         public static Vector2Int WindowSize(int displayWidth, int displayHeight) =>
             new Vector2Int(Mathf.RoundToInt(displayWidth * WindowFraction), Mathf.RoundToInt(displayHeight * WindowFraction));

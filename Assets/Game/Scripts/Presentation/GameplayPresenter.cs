@@ -12,6 +12,7 @@ namespace ValleyRail
         RectTransform scrim;
         float nextContextY;
         Action closeContext;
+        RectTransform contextClose, contextShade;
         public bool RecoveryOpen { get; private set; }
         public bool SettingsOpen { get; private set; }
         static string Unit(Cargo c) => c == Cargo.Passengers ? "passengers" : c == Cargo.Goods ? "crates" : c == Cargo.Oil ? "barrels" : "tons";
@@ -236,7 +237,14 @@ namespace ValleyRail
             contextText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, detailHeight);
             nextContextY = 126 + detailHeight + 24;
             contextBody.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Max(context.rect.height, nextContextY));
-            Button(contextBody, "CLOSE", () => closeContext(), new Vector2(context.rect.width - 118, -16), new Vector2(96, 96));
+            // A solid strip behind CLOSE once the window scrolls, so rows slide under a header instead of under the button.
+            contextShade = Panel("Header shade", contextBody, new Color(navy.r, navy.g, navy.b, 1));
+            contextShade.anchorMin = new Vector2(0, 1);
+            contextShade.anchorMax = new Vector2(1, 1);
+            contextShade.pivot = new Vector2(.5f, 1);
+            contextShade.sizeDelta = new Vector2(0, 124);
+            contextShade.gameObject.SetActive(false);
+            contextClose = Button(contextBody, "CLOSE", () => closeContext(), new Vector2(context.rect.width - 118, -16), new Vector2(96, 96));
         }
 
         public void UpdateHud()
@@ -343,7 +351,7 @@ namespace ValleyRail
             Context("YOUR FLEET", FleetText());
             fleetLabels.Clear();
             if (app.Game.World.trains.Count == 0)
-                contextText.text = "Your first train starts at a station. Build tracks near an industry, add a station, then tap it to buy a train.";
+                contextText.text = "No trains yet. Tap AUTO ROUTE to have a whole line built, or build tracks near an industry, add a station, then tap it to buy a train.";
             foreach (var t in app.Game.World.trains)
             {
                 int id = t.id;
@@ -464,7 +472,7 @@ namespace ValleyRail
             if (!start)
                 Button(menuBody, "RESUME", CloseMenu, new Vector2(40, y), new Vector2(520, 96), true);
             else
-                Button(menuBody, "NEW GAME", () => app.NewGame(false), new Vector2(40, y), new Vector2(520, 96), true);
+                Button(menuBody, "NEW GAME", () => { app.NewGame(false); app.OfferAutoRoute = true; }, new Vector2(40, y), new Vector2(520, 96), true);
             y -= step;
             Button(menuBody, start ? "EXPLORE A WORKING RAILWAY" : "SAVE GAME", () => { if (start) app.NewGame(true); else { app.Save(false); ShowMenu(false, app.Notice); } }, new Vector2(40, y), new Vector2(520, 96));
             y -= step;

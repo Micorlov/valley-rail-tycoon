@@ -67,6 +67,15 @@ namespace ValleyRail.Core
                     return w.producers[i];
             return null;
         }
+        /// <summary>The most an industry or town holds while no station serves it: about two small trainloads.</summary>
+        public const int UnservedStock = 90;
+        bool Served(int producerId)
+        {
+            foreach (var s in w.stations)
+                if (s.producerId == producerId)
+                    return true;
+            return false;
+        }
         public void Step()
         {
             foreach (var p in w.producers)
@@ -76,6 +85,9 @@ namespace ValleyRail.Core
                 bool town = p.kind == ProducerKind.Town;
                 p.remainder += town ? p.production : b.CargoProduction(IndustryCatalog.Output(p.kind).Value);
                 int storage = town ? p.storage : b.storage;
+                // Nothing piles up where no station collects it, so a new line opens with a couple of trainloads, not a windfall.
+                if (p.inventory >= UnservedStock && !Served(p.id))
+                    storage = UnservedStock;
                 while (p.remainder >= 1200)
                 {
                     p.remainder -= 1200;

@@ -84,8 +84,8 @@ namespace ValleyRail.Tests
             StringAssert.Contains("Twist", desktop);
             StringAssert.DoesNotContain("Pinch / scroll", desktop, "on a Mac trackpad a two-finger scroll pans, it does not zoom");
             StringAssert.Contains("Pinch / scroll", phone);
-            StringAssert.Contains("Build tracks near an industry", desktop);
-            StringAssert.Contains("Build tracks near an industry", phone);
+            StringAssert.Contains("AUTO ROUTE builds a whole railway", desktop);
+            StringAssert.Contains("AUTO ROUTE builds a whole railway", phone);
         }
 
         [Test]

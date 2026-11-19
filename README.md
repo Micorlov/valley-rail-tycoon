@@ -18,6 +18,10 @@ Sound effects are original as well: `python3 Tools/compose_sfx.py` synthesizes t
 
 ## First delivery
 
+The quickest way: a new game opens **AUTO ROUTE** (also on the bottom bar). Pick where the line starts and where it goes; the AI shows the route and price, then builds both stations, the track and a train in one tap. After the first delivery, nine goals pay $6,000–$100,000 each (line goals pay on the first delivery): passengers, a wood → goods chain and light rail (which opens after the first delivery), then four trains, a Small Town, 2,000 units delivered and $1,000,000 in the bank. The money display turns orange and a notice warns when funds drop below about three minutes of running costs. Passengers pay half a freight unit's rate because they travel both ways, and a town or industry with no station holds at most 90 units, so a new line opens with a couple of trainloads rather than a windfall.
+
+To build by hand:
+
 - In **Build Track**, drag or tap from `(8,15)` to `(50,15)`, crossing the southern bridge site on row 15. Confirm the green preview.
 - In **Station**, tap `(10,15)` for Pinecrest Mine and `(48,15)` for Eastbank Power. Choose the location in the side panel.
 - Return to **Explore**, tap the mine station and buy a **Small freight / Coal** train.

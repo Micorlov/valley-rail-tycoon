@@ -28,7 +28,7 @@ namespace ValleyRail.Tests
             target.GetComponent<Button>().onClick.Invoke();
         }
         [UnityTest]
-        public IEnumerator CompactHudShowsOnlySevenControls()
+        public IEnumerator CompactHudShowsOnlyEightControls()
         {
             var app = App();
             yield return null;
@@ -39,7 +39,7 @@ namespace ValleyRail.Tests
                 if (!button.transform.IsChildOf(Safe(app).Find("Context")) && !button.transform.IsChildOf(Safe(app).Find("Menu")))
                     names.Add(button.name);
             names.Sort();
-            Assert.That(names, Is.EqualTo(new[] { "BUILD", "MENU", "PAUSE", "ROTATE", "SPEED", "STATIONS", "TRAINS" }));
+            Assert.That(names, Is.EqualTo(new[] { "AUTO ROUTE", "BUILD", "MENU", "PAUSE", "ROTATE", "SPEED", "STATIONS", "TRAINS" }));
             LogAssert.NoUnexpectedReceived();
         }
         [UnityTest]

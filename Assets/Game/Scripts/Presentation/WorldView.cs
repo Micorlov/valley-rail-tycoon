@@ -109,7 +109,8 @@ namespace ValleyRail
             go.transform.localScale = scale;
             go.transform.localRotation = rotation ?? Quaternion.identity;
             go.GetComponent<Renderer>().sharedMaterial = Mat(color);
-            Destroy(go.GetComponent<Collider>());
+            // At once, not at frame end: a figure spawned this frame must never catch the camera's tap raycast.
+            DestroyImmediate(go.GetComponent<Collider>());
             return go;
         }
         Dictionary<Material, List<CombineInstance>> BatchFor(Transform parent) =>
